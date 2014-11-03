@@ -6,7 +6,7 @@ package bataillenavale;
 public class Main {
     public static void Main(String[] args)
     {
-        new Map();
+        Map map = new Map();
     }
 
 }

@@ -1,4 +1,6 @@
-bataille_navale.iml
+bataillenavale.iml
+workspace.xml 
+tasks.xml
 
 # Eclipse
 .classpath
@@ -7,6 +9,7 @@ bataille_navale.iml
 
 # Intellij
 .idea/
+.idea/workspace.xml
 *.iml
 *.iws
 

@@ -23,7 +23,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>iut.BatailleNavale</mainClass>
+                            <mainClass>bataillenavale.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

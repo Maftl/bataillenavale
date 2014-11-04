@@ -4,30 +4,28 @@ Procédure
 Windows
 -------
 
-# sauvegarde projet
+* sauvegarde projet
 
-# Dans NetBeans, sur le pom clic droit, clean compile
+* Dans NetBeans, sur le pom clic droit, clean compile
 
-# Copier l'adresse du jar, aller en console, executer :
+* Copier l'adresse du jar, aller en console, executer :
 java
 
-# compilation
+* compilation
 java -jar adreseDuJar
 
 Mac
 ---
 
-# maven test
+* maven test
 mvn test
 
-# efface le répertoire cible
+* efface le répertoire cible
 mvn clean
 
-# maven compilation
+* maven compilation en jar
 mvn compile
 mvn compile jar:jar
 
-avoir un executable, à partir d’un jar
-
-# execution
+* execution du fichier jar
 java -jar /Users/mariealine/Code/ACPI/bataille_navale_mazardo/target/bataillenavale-1.0-SNAPSHOT.jar

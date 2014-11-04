@@ -11,16 +11,17 @@ public class Boat {
     public void initAndPlaceBoat(int x, int y, char direction, int height){
         if (this.isIn(x,y,direction,height) && this.isEmpty(x,y,direction,height) && direction == 'h'){
             for (int i=0; i < height; i++){
-                myBoard[x][y] = 1;
+                myBoard.map[x][y] = 1;
                 y++;
             }
+            
             System.out.flush();
             myBoard.showBoard();
         }
         
         if (this.isIn(x,y,direction,height) && this.isEmpty(x,y,direction,height) && direction == 'v'){
             for (int i=0; i < height; i++){
-                myBoard[x][y] = 1;
+                myBoard.map[x][y] = 1;
                 x++;
             }
             System.out.flush();
@@ -32,7 +33,7 @@ public class Boat {
         
         if(direction == 'h' && height >= 0 && height <= 5){
             for (int i=0; i <= (height-1); i++){
-                if (myBoard[x][y] == 0){
+                if (myBoard.map[x][y] == 0){
                     y++;
                 }
                 else{
@@ -43,7 +44,7 @@ public class Boat {
 
         if(direction == 'v' && height >= 0 && height <= 5){
             for (int i=0; i <= (height-1); i++){
-                if (myBoard[x][y] == 0){
+                if (myBoard.map[x][y] == 0){
                     x++;
                 }
                 else{
@@ -61,14 +62,14 @@ public class Boat {
             canbeplaced = true;
         }
         else{
-            System.out.println("MERDE");
+            System.out.println("erreur horizontale");
         }
 
         if (direction == 'v' && (y+height) <= 9){
             canbeplaced = true;
         }
         else{
-            System.out.println("MERDE2");
+            System.out.println("erreur verticale");
         }
 
         return canbeplaced;

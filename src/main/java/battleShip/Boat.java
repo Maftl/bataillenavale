@@ -31,7 +31,7 @@ public class Boat {
     public boolean isEmpty(int x, int y, char direction, int height){
         boolean checked = true;
         
-        if(direction == 'h' && height >= 0 && height <= 5){
+        if(direction == 'h'){
             for (int i=0; i <= (height-1); i++){
                 if (myBoard.map[x][y] == 0){
                     y++;
@@ -42,7 +42,7 @@ public class Boat {
             }
         }
 
-        if(direction == 'v' && height >= 0 && height <= 5){
+        if(direction == 'v'){
             for (int i=0; i <= (height-1); i++){
                 if (myBoard.map[x][y] == 0){
                     x++;
@@ -57,21 +57,29 @@ public class Boat {
 
     public boolean isIn(int x, int y, char direction, int height){
         boolean canbeplaced = false;
+        
+        // a fixer : le double affichage de l'erreur en cas de saisie trop haute
+        // peut etre que ça passe 2 fois vu qu'il y a abscisse et ordonnées.
+        // Il faut limiter juste à H ou V
 
-        if (direction == 'h' && (x+height) <= 9){
-            canbeplaced = true;
+        if (direction == 'h'){
+            if((x+height) <= 9){
+                canbeplaced = true;
+                System.out.println("Ok horizontale");
+            }
+            else{
+                System.out.println("erreur horizontale");
+            }
         }
         else{
-            System.out.println("erreur horizontale");
+            if ((y+height) <= 9){
+                canbeplaced = true;
+                System.out.println("Ok vertical");
+            }
+            else{
+                System.out.println("erreur verticale");
+            }   
         }
-
-        if (direction == 'v' && (y+height) <= 9){
-            canbeplaced = true;
-        }
-        else{
-            System.out.println("erreur verticale");
-        }
-
         return canbeplaced;
-    }
-}
+    }   
+}     

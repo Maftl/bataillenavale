@@ -10,13 +10,11 @@ public class Board {
     public String[] alpha = headersLine();
     
     private static final int TAILLE = 10;
+
     
-    public Board() {
-        
-    }
-    
-    public void Board(){
+    public int[][] Board(){
         initBoard();
+        return map;
     }
     
     // Initialisation de la map

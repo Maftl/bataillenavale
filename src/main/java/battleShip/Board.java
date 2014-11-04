@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bataillenavale;
+package battleShip;
 
 public class Board {
     public int[][] map = new int[10][10];

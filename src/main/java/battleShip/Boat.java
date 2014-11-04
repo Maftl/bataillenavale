@@ -28,6 +28,7 @@ public class Boat {
             myBoard.showBoard();      
         }
     }
+    
     public boolean isEmpty(int x, int y, char direction, int height){
         boolean checked = true;
         
@@ -56,7 +57,7 @@ public class Boat {
     }
 
     public boolean isIn(int x, int y, char direction, int height){
-        boolean canbeplaced = false;
+        boolean canBePlaced = false;
         
         // a fixer : le double affichage de l'erreur en cas de saisie trop haute
         // peut etre que ça passe 2 fois vu qu'il y a abscisse et ordonnées.
@@ -64,7 +65,7 @@ public class Boat {
 
         if (direction == 'h'){
             if((x+height) <= 9){
-                canbeplaced = true;
+                canBePlaced = true;
                 System.out.println("Ok horizontale");
             }
             else{
@@ -73,13 +74,13 @@ public class Boat {
         }
         else{
             if ((y+height) <= 9){
-                canbeplaced = true;
+                canBePlaced = true;
                 System.out.println("Ok vertical");
             }
             else{
                 System.out.println("erreur verticale");
             }   
         }
-        return canbeplaced;
+        return canBePlaced;
     }   
 }     

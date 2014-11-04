@@ -6,10 +6,10 @@
 package battleShip;
 
 public class Board {
-    public int[][] map = new int[TAILLE][TAILLE];
-    public String[] alpha = headersLine();
+    public int[][] map = new int[SIZE][SIZE];
+    public String[] alpha = headerLine();
     
-    private static final int TAILLE = 10;
+    private static final int SIZE = 10;
 
     
     public int[][] Board(){
@@ -19,13 +19,12 @@ public class Board {
     
     // Initialisation de la map
     public void initBoard(){
-        for(int i=1; i<=TAILLE; i++){
-           for(int j=1; j<=TAILLE; j++){
+        for(int i=1; i<=SIZE; i++){
+           for(int j=1; j<=SIZE; j++){
                map[i][j] = 0;
             } 
         }
     }
-    
     
     // Affichage de la map
     public void showBoard(){
@@ -33,11 +32,11 @@ public class Board {
        System.out.print("\n   1 2 3 4 5 6 7 8 9 10 ");
             line();
                   
-            for (int ligne = 0; ligne < TAILLE; ligne++){
+            for (int ligne = 0; ligne < SIZE; ligne++){
                 
                 System.out.print("\n" + alpha[ligne] + " " + "|");
-                for (int colonne = 0; colonne < TAILLE; colonne++){
-                    showSquare(map[ligne][colonne]);
+                for (int column = 0; column < SIZE; column++){
+                    showSquare(map[ligne][column]);
                 }
                 
                 if (ligne < 9)
@@ -48,41 +47,41 @@ public class Board {
    }
     
     private static void showSquare(final int aCase) {
-        final String bordure = "|";
-        final String vide = " "+ bordure;
-        final String bateau = "O" + bordure;
-        final String touche = "X" + bordure;
-        final String rate = "@" + bordure;
+        final String border = "|";
+        final String empty = " "+ border;
+        final String boat = "O" + border;
+        final String reached = "X" + border;
+        final String failed = "@" + border;
 
         String gCase = "";
         if (aCase == 0)
-            gCase = vide;
+            gCase = empty;
         if (aCase == 1)
-            gCase = bateau;
+            gCase = boat;
         if (aCase == 2)
-            gCase = touche;
+            gCase = reached;
          if (aCase == 3)
-            gCase = rate;
+            gCase = failed;
         System.out.print(gCase);
         }   
     
     static void line(){        
         System.out.print("\n  |-");
-        for (int elem = 2; elem <= TAILLE; elem++)
+        for (int elem = 2; elem <= SIZE; elem++)
             System.out.print("|-");
         System.out.print("|");
         }
 
     static void bottomLine(){
         System.out.print("\n  |-");
-        for (int elem = 2; elem <= TAILLE; elem++)
+        for (int elem = 2; elem <= SIZE; elem++)
             System.out.print("|-");
         System.out.print("| \n\n");
     }
 
-    static String[] headersLine() {
-        String[] result = new String[TAILLE];
-        for(int i=0; i < TAILLE;i++) {
+    static String[] headerLine() {
+        String[] result = new String[SIZE];
+        for(int i=0; i < SIZE;i++) {
             result[i] = Character.toString((char)('A'+ i));
         }
         return result;

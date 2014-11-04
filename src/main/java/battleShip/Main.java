@@ -20,10 +20,10 @@ public class Main {
         System.out.println("direction :" + direction);
         System.out.println("Choisis les coordonnées d'origine du bateau :");
         System.out.println("Abscisse:");
-        int abscissa = sc.nextInt();
+        int abscissa = sc.nextInt() -1;
         System.out.println("Abscisse saisie: " + abscissa);
         System.out.println("Ordonnées:");
-        int ordinate = sc.nextInt();
+        int ordinate = sc.nextInt()-1;
         System.out.println("Abscisse saisie: " + ordinate);
         
         myBoat.initAndPlaceBoat(abscissa, ordinate, direction, 5);

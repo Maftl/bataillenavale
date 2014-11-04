@@ -23,11 +23,14 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>bataillenavale.Main</mainClass>
+                            <mainClass>battleShip.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 </project>

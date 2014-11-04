@@ -39,7 +39,6 @@ public class Boat {
         }
         
     }
-
     public boolean isEmpty(int x, int y, char direction, int height){
         boolean checked = true;
         
@@ -88,5 +87,3 @@ public class Boat {
         return canbeplaced;
     }
 }
-
-

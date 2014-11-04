@@ -7,6 +7,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args)
     {
+        Board map = new Board();
+        map.showBoard();
+        
         Boat myBoat = new Boat();
         Scanner sc = new Scanner(System.in);
         System.out.println("Tu as 5 bateaux dans ton port.");

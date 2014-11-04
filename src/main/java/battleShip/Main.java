@@ -23,10 +23,9 @@ public class Main {
         int ordinate = sc.nextInt();
         System.out.println("Abscisse saisie: " + ordinate);
         
-        myBoat.initBoat(abscissa, ordinate, direction);
+        myBoat.initAndPlaceBoat(abscissa, ordinate, direction, 5);
+        
 
     }
 
 }
-
-

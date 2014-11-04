@@ -36,3 +36,5 @@ Fonctionnalités principales
     * Créer l'interface graphique
 
 [Le board Trello est disponible ici](https://trello.com/b/BvMZUr3Y/bataille-navale-maftl)
+
+[Schéma UML](https://www.draw.io/#G0B6BU9oE7LmJCcE8tck9aRzdvWk0)

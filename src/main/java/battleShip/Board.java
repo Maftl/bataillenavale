@@ -30,7 +30,7 @@ public class Board {
     // Affichage de la map
     public void showBoard(){
        
-       System.out.print("\n  1 2 3 4 5 6 7 8 10");
+       System.out.print("\n   1 2 3 4 5 6 7 8 9 10 ");
             line();
                   
             for (int ligne = 0; ligne < TAILLE; ligne++){

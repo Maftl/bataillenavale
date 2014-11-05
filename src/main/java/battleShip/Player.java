@@ -35,30 +35,31 @@ public class Player {
             System.out.println("Choisis l'orientation de ton "+fleet[i].getTypeBoat());
             System.out.println("orientation : (h/v) ");
             direction = sc.next().charAt(0);
-            while (direction != 'h' && direction != 'v' ){
-                System.out.println("Saisie incorrecte, recommence !");
-                direction = sc.next().charAt(0);
-            }
-            System.out.println("direction :" + direction);
+        while (direction != 'h' && direction != 'v' ){
+            System.out.println("Saisie incorrecte, veuillez recommencer");
+            direction = sc.next().charAt(0);
+        }
+        System.out.println("direction :" + direction);
 
             // Saisie de l'abscisse
             System.out.println("Choisis les coordonnées d'origine du bateau :");
             System.out.println("Abscisse:");
-            int abscissa = sc.nextInt() -1;
-            while (abscissa < 1 || abscissa > 10 ){
-                System.out.println("Saisie incorrecte, recommence !");
-                abscissa = sc.nextInt() -1;
-            }
-            System.out.println("Abscisse saisie: " + abscissa);
+            int abscissa = sc.nextInt();
+        while (abscissa < 1 || abscissa > 10 ){
+            System.out.println("Saisie incorrecte, veuillez recommencer");
+            abscissa = sc.nextInt();
+        }
+        System.out.println("Abscisse saisie: " + abscissa);
             
             // Saisie de l'ordonnée
             System.out.println("Ordonnées:");
-            int ordinate = sc.nextInt()-1;
-            while (ordinate < 1 || ordinate > 10 ){
-                System.out.println("Saisie incorrecte, recommence !");
-                ordinate = sc.nextInt() -1;
-            }
-            System.out.println("Ordonnée saisie: " + ordinate);
+            int ordinate = sc.nextInt();
+        while (ordinate < 1 || ordinate > 10 ){
+            System.out.println("Saisie incorrecte, veuillez recommencer");
+            ordinate = sc.nextInt();
+        }
+        System.out.println("Ordonnée saisie: " + ordinate);
+                
             
             fleet[i].setDirection(direction);
             fleet[i].setHz(abscissa);
@@ -67,7 +68,10 @@ public class Player {
             placeBoat(fleet[i].getHz(),fleet[i].getVt(),fleet[i].getDirection(),fleet[i].getHeight());
             i++;
         }
-    }
+        
+        myBoard.showBoard();
+        System.out.println("Prêt à jouer !!!");
+}
     
     // Retourne le Player
     public Player getPlayer(){
@@ -82,52 +86,56 @@ public class Player {
     public void placeBoat(int abs, int ord, char dir, int height ){
         
         
-        //if (this.isIn(abs,ord,dir,height) && this.isEmpty(abs,ord,dir,height) && dir == 'h'){
-        if (this.isIn(abs,ord,dir,height) && dir == 'h'){    
-            for (int i=0; i < height; i++){
-                myBoard.map[abs][ord] = 1;
-                ord++;
+        switch(dir) {
+            case 'h':
+            case 'H':
+                if (verificationTotale(abs, ord, dir, height)) {
+                    for (int i = 0; i < height; i++) {
+                        myBoard.map[(ord - 1) ][abs - 1 + i] = 1;
+                    }
+                    System.out.flush();
+                    myBoard.showBoard();
             }
-
-            System.out.flush();
-            myBoard.showBoard();
-        }
-
-        //if (this.isIn(abs,ord,dir,height) && this.isEmpty(abs,ord,dir,height) && dir == 'v'){
-        if (this.isIn(abs,ord,dir,height) && dir == 'v'){    
-            for (int i=0; i < height; i++){
-                myBoard.map[abs][ord] = 1;
-                abs++;
+            break;
+            case 'v':
+            case 'V':
+                if (verificationTotale(abs, ord, dir, height)) {
+                    for (int i=0; i < height; i++){
+                        myBoard.map[(ord - 1)+i][abs-1] = 1;
+                    }
+                    System.out.flush();
+                    myBoard.showBoard();
             }
-            System.out.flush();
-            myBoard.showBoard();
-        }
+            break;
+            default:
+                System.out.println("erreur");
+        } 
     }
     
      // Vérifie si la case saisie est vide est que les cases suivantes, suivant la taille du bateau, sont vides
-    public boolean isEmpty(int hz, int vt, char direction, int height){
+    public boolean isEmpty(int abs, int ord, char dir, int height){
         boolean checked = true;
         int i = 0;
 
         //Si horizontal
-        if(direction == 'h'){
-
-            while(checked==true && i < height){
-                    if (myBoard.map[hz][vt] == 0){
-                        vt++;
+        switch(dir) {
+            case 'h':
+            case 'H':
+                while(checked==true && i < height){
+                    if (myBoard.map[ord-1][abs-1] == 0){
+                        abs++;
                     }
                     else{
                         checked = false;
                     }
                 i++;
             }
-        }
-
-        //Si vertical
-        if(direction == 'v'){
-            while(checked==true && i < height){
-                    if (myBoard.map[hz][vt] == 0){
-                        vt++;
+            break;
+            case 'v':
+            case 'V':
+                while(checked==true && i < height){
+                    if (myBoard.map[ord-1][abs-1] == 0){
+                        ord++;
                     }
                     else{
                         checked = false;
@@ -138,31 +146,39 @@ public class Player {
         return checked;
     }
 
-    public boolean isIn(int hz, int vt, char direction, int height){
+    public boolean isIn(int abs, int ord, char dir, int height){
         boolean canBePlaced = false;
-
-        // a fihzer : le double affichage de l'erreur en cas de saisie trop haute
-        // peut etre que ça passe 2 fois vu qu'il vt a abscisse et ordonnées.
-        // Il faut limiter juste à H ou V
-
-        if (direction == 'h'){
-            if((hz+height) <= 9){
-                canBePlaced = true;
-                System.out.println("Ok horizontale");
-            }
-            else{
-                System.out.println("erreur horizontale");
-            }
-        }
-        else{
-            if ((vt+height) <= 9){
-                canBePlaced = true;
-                System.out.println("Ok vertical");
-            }
-            else{
-                System.out.println("erreur verticale");
-            }
+        switch(dir){
+            case 'h':
+            case 'H':
+                int absTest = abs + height;
+                if(absTest <= 10){
+                    canBePlaced = true; 
+                }
+                else{
+                    System.out.println("débordement de la grille à la horizontale");
+                }
+            break;
+            case 'v':
+            case 'V':
+                if ((ord+height) <= 10){
+                    canBePlaced = true;
+                }
+                else{
+                    System.out.println("débordement de la grille à la verticale");
+                }
+            break;
+            default:
+                System.out.println("erreur isIn");
         }
         return canBePlaced;
+    }
+    
+    private boolean verificationTotale(int abs1, int ord1, char direction, int height){
+        boolean verification = false;
+        if (this.isIn(abs1, ord1, direction, height) && this.isEmpty(abs1, ord1, direction, height)) {
+            verification = true;
+        }
+        return verification;
     }
 }

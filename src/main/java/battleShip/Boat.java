@@ -1,17 +1,17 @@
 package battleShip;
 public class Boat {
 
+
     private int hz, vt, height;
     public static char direction;
     Board myBoard = new Board();
     public Boat(){
 
     }
-
     public void initAndPlaceBoat(int hz, int vt, char direction, int height){
-        if (this.isIn(hz,y,direction,height) && this.isEmpty(hz,y,direction,height) && direction == 'h'){
+        if (this.isIn(hz,vt,direction,height) && this.isEmpty(hz,vt,direction,height) && direction == 'h'){
             for (int i=0; i < height; i++){
-                myBoard.map[hz][y] = 1;
+                myBoard.map[hz][vt] = 1;
                 vt++;
             }
 
@@ -19,9 +19,9 @@ public class Boat {
             myBoard.showBoard();
         }
 
-        if (this.isIn(hz,y,direction,height) && this.isEmpty(hz,y,direction,height) && direction == 'v'){
+        if (this.isIn(hz,vt,direction,height) && this.isEmpty(hz,vt,direction,height) && direction == 'v'){
             for (int i=0; i < height; i++){
-                myBoard.map[hz][y] = 1;
+                myBoard.map[hz][vt] = 1;
                 hz++;
             }
             System.out.flush();
@@ -29,28 +29,35 @@ public class Boat {
         }
     }
 
+    // Vérifie si la case saisie est vide est que les cases suivantes, suivant la taille du bateau, sont vides
     public boolean isEmpty(int hz, int vt, char direction, int height){
         boolean checked = true;
+        int i = 0;
 
+        //Si horizontal
         if(direction == 'h'){
-            for (int i=0; i <= (height-1); i++){
-                if (myBoard.map[hz][y] == 0){
-                    vt++;
-                }
-                else{
-                    checked = false;
-                }
+
+            while(checked==true && i < height){
+                    if (myBoard.map[hz][vt] == 0){
+                        vt++;
+                    }
+                    else{
+                        checked = false;
+                    }
+                i++;
             }
         }
 
+        //Si vertical
         if(direction == 'v'){
-            for (int i=0; i <= (height-1); i++){
-                if (myBoard.map[hz][y] == 0){
-                    hz++;
-                }
-                else{
-                    checked = false;
-                }
+            while(checked==true && i < height){
+                    if (myBoard.map[hz][vt] == 0){
+                        vt++;
+                    }
+                    else{
+                        checked = false;
+                    }
+                i++;
             }
         }
         return checked;
@@ -73,7 +80,7 @@ public class Boat {
             }
         }
         else{
-            if ((y+height) <= 9){
+            if ((vt+height) <= 9){
                 canBePlaced = true;
                 System.out.println("Ok vertical");
             }

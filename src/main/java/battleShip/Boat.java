@@ -1,85 +1,105 @@
 package battleShip;
 public class Boat {
 
-    private int x, y, height;
     public static char direction;
     Board myBoard = new Board();
     public Boat(){
-
-    }
-
-    public void initAndPlaceBoat(int x, int y, char direction, int height){
-        if (this.isIn(x,y,direction,height) && this.isEmpty(x,y,direction,height) && direction == 'h'){
-            for (int i=0; i < height; i++){
-                myBoard.map[x][y] = 1;
-                y++;
-            }
-            
-            System.out.flush();
-            myBoard.showBoard();
-        }
         
-        if (this.isIn(x,y,direction,height) && this.isEmpty(x,y,direction,height) && direction == 'v'){
-            for (int i=0; i < height; i++){
-                myBoard.map[x][y] = 1;
-                x++;
-            }
-            System.out.flush();
-            myBoard.showBoard();      
-        }
     }
-    public boolean isEmpty(int x, int y, char direction, int height){
+    
+    public void initAndPlaceBoat(int abs1, int ord1, char direction, int height){
+        switch(direction) {
+            case 'h':
+            case 'H':
+                if (verificationTotale(abs1, ord1, direction, height)) {
+                    for (int i = 0; i < height; i++) {
+                        myBoard.map[(ord1 - 1) ][abs1 - 1 + i] = 1;
+                    }
+                    System.out.flush();
+                    myBoard.showBoard();
+            }
+            break;
+            case 'v':
+            case 'V':
+                if (verificationTotale(abs1, ord1, direction, height)) {
+                    for (int i=0; i < height; i++){
+                        myBoard.map[(ord1 - 1)+i][abs1-1] = 1;
+                    }
+                    System.out.flush();
+                    myBoard.showBoard();
+            }
+            break;
+            default:
+                System.out.println("erreur");
+        } 
+        
+    }
+
+    // Vérifie si la case saisie est vide est que les cases suivantes, suivant la taille du bateau, sont vides
+    public boolean isEmpty(int abs2, int ord2, char direction, int height){
         boolean checked = true;
-        
-        if(direction == 'h'){
-            for (int i=0; i <= (height-1); i++){
-                if (myBoard.map[x][y] == 0){
-                    y++;
-                }
-                else{
-                    checked = false;
-                }
+        int i = 0;
+        switch(direction) {
+            case 'h':
+            case 'H':
+                while(checked==true && i < height){
+                    if (myBoard.map[ord2-1][abs2-1] == 0){
+                        abs2++;
+                    }
+                    else{
+                        checked = false;
+                    }
+                i++;
             }
-        }
-
-        if(direction == 'v'){
-            for (int i=0; i <= (height-1); i++){
-                if (myBoard.map[x][y] == 0){
-                    x++;
-                }
-                else{
-                    checked = false;
-                }
+            break;
+            case 'v':
+            case 'V':
+                while(checked==true && i < height){
+                    if (myBoard.map[ord2-1][abs2-1] == 0){
+                        ord2++;
+                    }
+                    else{
+                        checked = false;
+                    }
+                i++;
             }
         }
         return checked;
     }
 
-    public boolean isIn(int x, int y, char direction, int height){
-        boolean canbeplaced = false;
-        
-        // a fixer : le double affichage de l'erreur en cas de saisie trop haute
-        // peut etre que ça passe 2 fois vu qu'il y a abscisse et ordonnées.
-        // Il faut limiter juste à H ou V
-
-        if (direction == 'h'){
-            if((x+height) <= 9){
-                canbeplaced = true;
-                System.out.println("Ok horizontale");
-            }
-            else{
-                System.out.println("erreur horizontale");
-            }
+    public boolean isIn(int abs3, int ord3, char direction, int height){
+        boolean canBePlaced = false;
+        switch(direction){
+            case 'h':
+            case 'H':
+                int absTest = abs3 + height;
+                if(absTest <= 10){
+                    canBePlaced = true; 
+                }
+                else{
+                    System.out.println("débordement de la grille à la horizontale");
+                }
+            break;
+            case 'v':
+            case 'V':
+                if ((ord3+height) <= 10){
+                    canBePlaced = true;
+                }
+                else{
+                    System.out.println("débordement de la grille à la verticale");
+                }
+            break;
+            default:
+                System.out.println("erreur isIn");
         }
-        else{
-            if ((y+height) <= 9){
-                canbeplaced = true;
-                System.out.println("Ok vertical");
-            }
-            else{
-                System.out.println("erreur verticale");
-            }   
+        return canBePlaced;
+    }
+     
+    private boolean verificationTotale(int abs1, int ord1, char direction, int height){
+        boolean verification = false;
+        if (this.isIn(abs1, ord1, direction, height) && this.isEmpty(abs1, ord1, direction, height)) {
+            verification = true;
         }
-        return canbeplaced;
-    }   
-}     
+        return verification;
+    }
+}

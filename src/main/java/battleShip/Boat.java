@@ -1,13 +1,14 @@
 package battleShip;
 public class Boat {
 
-    private int x, y, height;
+    private int hz, y, height;
     public static char direction;
     Board myBoard = new Board();
     public Boat(){
 
     }
-
+    
+    
     public void initAndPlaceBoat(int x, int y, char direction, int height){
         if (this.isIn(x,y,direction,height) && this.isEmpty(x,y,direction,height) && direction == 'h'){
             for (int i=0; i < height; i++){
@@ -29,28 +30,35 @@ public class Boat {
         }
     }
     
+    // Vérifie si la case saisie est vide est que les cases suivantes, suivant la taille du bateau, sont vides
     public boolean isEmpty(int x, int y, char direction, int height){
         boolean checked = true;
+        int i = 0;
         
+        //Si horizontal
         if(direction == 'h'){
-            for (int i=0; i <= (height-1); i++){
-                if (myBoard.map[x][y] == 0){
-                    y++;
-                }
-                else{
-                    checked = false;
-                }
+            
+            while(checked==true && i < height){
+                    if (myBoard.map[x][y] == 0){
+                        x++;
+                    }
+                    else{
+                        checked = false;
+                    }
+                i++;
             }
         }
-
+        
+        //Si vertical
         if(direction == 'v'){
-            for (int i=0; i <= (height-1); i++){
-                if (myBoard.map[x][y] == 0){
-                    x++;
-                }
-                else{
-                    checked = false;
-                }
+            while(checked==true && i < height){
+                    if (myBoard.map[x][y] == 0){
+                        y++;
+                    }
+                    else{
+                        checked = false;
+                    }
+                i++;
             }
         }
         return checked;

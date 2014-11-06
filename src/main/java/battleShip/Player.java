@@ -9,6 +9,7 @@ public class Player {
      private Boat fleet[] = new Boat[nbBoat];
      
      Board myBoard = new Board();
+     Board attackBoard = new Board();
 
     // Constructeur
     public  void Player(){
@@ -42,14 +43,7 @@ public class Player {
             }
             
             System.out.println("Choisis les coordonnées d'origine du "+fleet[i].getTypeBoat());
-            
-            /*String coor;
-            coor = sc.nextLine();
-            int lenght_coor = coor.length();
-            char ordinate = coor.charAt(0);
-            int abscissa = coor.charAt(coor.length() - 1);
-            */
-            
+              
             System.out.println("Ligne :");
             char ordinate = sc.next().charAt(0);
             int num_ascii = (int) ordinate;
@@ -68,16 +62,23 @@ public class Player {
                 abscissa = sc.nextInt();
             }
             
-            //int num_ascii = (int) ordinate;
             fleet[i].setDirection(direction);
             fleet[i].setHz(abscissa);
             fleet[i].setVt(num_ascii-64);
             
             placeBoat(fleet[i].getHz(),fleet[i].getVt(),fleet[i].getDirection(),fleet[i].getHeight());
             i++;
+            
+            if(i>=nbBoat){
+                System.out.println("\n\nVotre flotte.");
+            }
+            
+            System.out.flush();
+            myBoard.showBoard();
         }
         
-        myBoard.showBoard();
+        System.out.println("\nGrille d'Attaque.");
+        attackBoard.showBoard();
         System.out.println("Prêt à jouer !!!");
 }
     
@@ -86,14 +87,13 @@ public class Player {
         return this;  
     }
     
-    // Attaque du joueur
+    // Attaque du joueurh
+
     public void attack(){
         
     }
     
     public void placeBoat(int abs, int ord, char dir, int height ){
-        
-        
         switch(dir) {
             case 'h':
             case 'H':
@@ -101,8 +101,6 @@ public class Player {
                     for (int i = 0; i < height; i++) {
                         myBoard.getGrid()[(ord - 1) ][abs - 1 + i] = 1;
                     }
-                    System.out.flush();
-                    myBoard.showBoard();
             }
             break;
             case 'v':
@@ -111,8 +109,6 @@ public class Player {
                     for (int i=0; i < height; i++){
                         myBoard.getGrid()[(ord - 1)+i][abs-1] = 1;
                     }
-                    System.out.flush();
-                    myBoard.showBoard();
             }
             break;
             default:

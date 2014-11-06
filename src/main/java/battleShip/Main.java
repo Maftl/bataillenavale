@@ -11,3 +11,4 @@ public class Main {
         joueur1.initPlayer();
     }
 }
+

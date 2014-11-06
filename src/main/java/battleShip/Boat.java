@@ -64,3 +64,4 @@ public class Boat {
         this.typeBoat = typeBoat;
     }
 }
+

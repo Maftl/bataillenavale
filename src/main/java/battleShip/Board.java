@@ -65,12 +65,16 @@ public class Board {
         
         // Selon la valeur de la case
         switch(boardSquare){
+            // case vide
             case 0: str_square = "   |";
                     break;
+            // case bateau
             case 1: str_square = " O |";
                     break;
+            // case attaquée
             case 2: str_square = " X |";
                     break;
+            // case attaque ratée
             case 3: str_square = " @ |";
                     break;
         }

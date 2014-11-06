@@ -33,36 +33,27 @@ public class Player {
         while(i < nbBoat){
                        
             // Saisie de l'orientation
-            System.out.println("Choisis l'orientation de ton "+fleet[i].getTypeBoat());
-            System.out.println("orientation : (h/v) ");
+            System.out.print("Choisis l'orientation de ton " + fleet[i].getTypeBoat() + "orientation (h/v) : \n>> ");
             direction = sc.next().charAt(0);
             while (direction != 'h' && direction != 'v' ){
-                System.out.println("Saisie incorrecte, veuillez recommencer");
+                System.out.print("Saisie incorrecte, veuillez recommencer : \n>> ");
                 direction = sc.next().charAt(0);
             }
             System.out.println("direction :" + direction);
 
-            // Saisie de l'abscisse
+            
             System.out.println("Choisis les coordonnées d'origine du bateau :");
-            System.out.println("Abscisse:");
-
-            int abscissa = sc.nextInt();
-            while (abscissa < 1 || abscissa > 10 ){
-                System.out.println("Saisie incorrecte, veuillez recommencer");
-                abscissa = sc.nextInt();
-            }
-            System.out.println("Ordonnée saisie: " + abscissa);
+            int abscissa = abscissaInput(sc, "Ligne :");
             
             // Saisie de l'ordonnée
             System.out.println("Ordonnées:");
-            
-            
             char ordinate = sc.next().charAt(0);
             int num_ascii = (int) ordinate;
 
-            while ((num_ascii-64) < 1 || (num_ascii-64) > 10 ){
-                System.out.println("Saisie incorrecte, veuillez recommencer");
+            while ((num_ascii) < 1 + 'a' || (num_ascii) > 10 + 'a' ){
+                System.out.print("Saisie incorrecte, veuillez recommencer : \n>> ");
                 ordinate = sc.next().charAt(0);
+                num_ascii = (int) ordinate;
             }
             System.out.println("Abscisse saisie: " + ordinate);
                 
@@ -78,6 +69,20 @@ public class Player {
         myBoard.showBoard();
         System.out.println("Prêt à jouer !!!");
 }
+    // saisie de la colonne
+    private int abscissaInput(Scanner sc, String msg) {
+        // Saisie de l'abscisse
+        System.out.println(msg);
+        int abscissa = sc.nextInt();
+        while (abscissa < 1 || abscissa > 10 ){
+            System.out.print(msg + " incorrecte, veuillez recommencer : \n>> ");
+            abscissa = sc.nextInt();
+            // à rajouter : le refactor de la méthode isIn dans cette méthode
+            // pour optimiser le test de la saisie d'abscisse
+        }
+        System.out.println("Ligne saisie: " + abscissa);
+        return abscissa;
+    }
     
     // Retourne le Player
     public Player getPlayer(){
@@ -187,4 +192,15 @@ public class Player {
         }
         return verification;
     }
+    
+    public int attackOrder(){
+        
+        System.out.println("Coordonnées d'attaque : \n>> ");
+        Scanner sc = new Scanner(System.in);
+        int abscissa = abscissaInput(sc, "Ligne :");
+        
+        return abscissa;   
+    }
+
+    
 }

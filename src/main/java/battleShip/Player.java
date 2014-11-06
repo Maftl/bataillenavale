@@ -40,22 +40,17 @@ public class Player {
                 System.out.println("Saisie incorrecte, veuillez recommencer");
                 direction = sc.next().charAt(0);
             }
-            System.out.println("direction :" + direction);
-
-            // Saisie de l'abscisse
-            System.out.println("Choisis les coordonnées d'origine du bateau :");
-            System.out.println("Abscisse:");
-
-            int abscissa = sc.nextInt();
-            while (abscissa < 1 || abscissa > 10 ){
-                System.out.println("Saisie incorrecte, veuillez recommencer");
-                abscissa = sc.nextInt();
-            }
-            System.out.println("Ordonnée saisie: " + abscissa);
             
-            // Saisie de l'ordonnée
-            System.out.println("Ordonnées:");
+            System.out.println("Choisis les coordonnées d'origine du "+fleet[i].getTypeBoat());
             
+            /*String coor;
+            coor = sc.nextLine();
+            int lenght_coor = coor.length();
+            char ordinate = coor.charAt(0);
+            int abscissa = coor.charAt(coor.length() - 1);
+            */
+            
+            System.out.println("Ligne :");
             char ordinate = sc.next().charAt(0);
             int num_ascii = (int) ordinate;
 
@@ -64,8 +59,16 @@ public class Player {
                 ordinate = sc.next().charAt(0);
                 num_ascii = (int) ordinate;
             }
-            System.out.println("Abscisse saisie: " + ordinate);
-                
+
+            // Saisie de l'abscisse
+            System.out.println("Colonne :");
+            int abscissa = sc.nextInt();
+            while (abscissa < 1 || abscissa > 10 ){
+                System.out.println("Saisie incorrecte, veuillez recommencer");
+                abscissa = sc.nextInt();
+            }
+            
+            //int num_ascii = (int) ordinate;
             fleet[i].setDirection(direction);
             fleet[i].setHz(abscissa);
             fleet[i].setVt(num_ascii-64);

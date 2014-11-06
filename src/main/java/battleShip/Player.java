@@ -1,3 +1,4 @@
+
 package battleShip;
 
 import java.util.Scanner;
@@ -44,26 +45,31 @@ public class Player {
             // Saisie de l'abscisse
             System.out.println("Choisis les coordonnées d'origine du bateau :");
             System.out.println("Abscisse:");
+
             int abscissa = sc.nextInt();
             while (abscissa < 1 || abscissa > 10 ){
                 System.out.println("Saisie incorrecte, veuillez recommencer");
                 abscissa = sc.nextInt();
             }
-            System.out.println("Abscisse saisie: " + abscissa);
+            System.out.println("Ordonnée saisie: " + abscissa);
             
             // Saisie de l'ordonnée
             System.out.println("Ordonnées:");
-            int ordinate = sc.nextInt();
-            while (ordinate < 1 || ordinate > 10 ){
+            
+            
+            char ordinate = sc.next().charAt(0);
+            int num_ascii = (int) ordinate;
+
+            while ((num_ascii-64) < 1 || (num_ascii-64) > 10 ){
                 System.out.println("Saisie incorrecte, veuillez recommencer");
-                ordinate = sc.nextInt();
+                ordinate = sc.next().charAt(0);
             }
-            System.out.println("Ordonnée saisie: " + ordinate);
+            System.out.println("Abscisse saisie: " + ordinate);
                 
             
             fleet[i].setDirection(direction);
             fleet[i].setHz(abscissa);
-            fleet[i].setVt(ordinate);
+            fleet[i].setVt(num_ascii-64);
             
             placeBoat(fleet[i].getHz(),fleet[i].getVt(),fleet[i].getDirection(),fleet[i].getHeight());
             i++;
@@ -182,4 +188,3 @@ public class Player {
         return verification;
     }
 }
-

@@ -1,16 +1,14 @@
 package battleShip;
- 
-import java.util.ArrayList;
+
 import java.util.Scanner;
 
 public class Player {
     
-     int nbBoat = 5;
-     Boat fleet[] = new Boat[nbBoat];
+     private int nbBoat = 5;
+     private Boat fleet[] = new Boat[nbBoat];
      
      Board myBoard = new Board();
-    
-    
+
     // Constructeur
     public  void Player(){
     }
@@ -18,12 +16,14 @@ public class Player {
     // Initialisation du joueur
     public void initPlayer(){
 
-        // Remplissage de la colection de Bateau avec type et taille
+        // Remplissage de la collection de Bateau avec type et taille
         fleet[0] = new Boat("Aircraft carrier", 5);
         fleet[1] = new Boat("Cruiser", 4);
         fleet[2] = new Boat("Submarin", 3);
         fleet[3] = new Boat("Destroyer", 3);
         fleet[4] = new Boat("Torpedo", 2);
+        
+        myBoard.showBoard();
         
         Scanner sc = new Scanner(System.in);
         char direction;
@@ -35,30 +35,30 @@ public class Player {
             System.out.println("Choisis l'orientation de ton "+fleet[i].getTypeBoat());
             System.out.println("orientation : (h/v) ");
             direction = sc.next().charAt(0);
-        while (direction != 'h' && direction != 'v' ){
-            System.out.println("Saisie incorrecte, veuillez recommencer");
-            direction = sc.next().charAt(0);
-        }
-        System.out.println("direction :" + direction);
+            while (direction != 'h' && direction != 'v' ){
+                System.out.println("Saisie incorrecte, veuillez recommencer");
+                direction = sc.next().charAt(0);
+            }
+            System.out.println("direction :" + direction);
 
             // Saisie de l'abscisse
             System.out.println("Choisis les coordonnées d'origine du bateau :");
             System.out.println("Abscisse:");
             int abscissa = sc.nextInt();
-        while (abscissa < 1 || abscissa > 10 ){
-            System.out.println("Saisie incorrecte, veuillez recommencer");
-            abscissa = sc.nextInt();
-        }
-        System.out.println("Abscisse saisie: " + abscissa);
+            while (abscissa < 1 || abscissa > 10 ){
+                System.out.println("Saisie incorrecte, veuillez recommencer");
+                abscissa = sc.nextInt();
+            }
+            System.out.println("Abscisse saisie: " + abscissa);
             
             // Saisie de l'ordonnée
             System.out.println("Ordonnées:");
             int ordinate = sc.nextInt();
-        while (ordinate < 1 || ordinate > 10 ){
-            System.out.println("Saisie incorrecte, veuillez recommencer");
-            ordinate = sc.nextInt();
-        }
-        System.out.println("Ordonnée saisie: " + ordinate);
+            while (ordinate < 1 || ordinate > 10 ){
+                System.out.println("Saisie incorrecte, veuillez recommencer");
+                ordinate = sc.nextInt();
+            }
+            System.out.println("Ordonnée saisie: " + ordinate);
                 
             
             fleet[i].setDirection(direction);
@@ -91,7 +91,7 @@ public class Player {
             case 'H':
                 if (verificationTotale(abs, ord, dir, height)) {
                     for (int i = 0; i < height; i++) {
-                        myBoard.map[(ord - 1) ][abs - 1 + i] = 1;
+                        myBoard.getGrid()[(ord - 1) ][abs - 1 + i] = 1;
                     }
                     System.out.flush();
                     myBoard.showBoard();
@@ -101,7 +101,7 @@ public class Player {
             case 'V':
                 if (verificationTotale(abs, ord, dir, height)) {
                     for (int i=0; i < height; i++){
-                        myBoard.map[(ord - 1)+i][abs-1] = 1;
+                        myBoard.getGrid()[(ord - 1)+i][abs-1] = 1;
                     }
                     System.out.flush();
                     myBoard.showBoard();
@@ -122,7 +122,7 @@ public class Player {
             case 'h':
             case 'H':
                 while(checked==true && i < height){
-                    if (myBoard.map[ord-1][abs-1] == 0){
+                    if (myBoard.getGrid()[ord-1][abs-1] == 0){
                         abs++;
                     }
                     else{
@@ -134,7 +134,7 @@ public class Player {
             case 'v':
             case 'V':
                 while(checked==true && i < height){
-                    if (myBoard.map[ord-1][abs-1] == 0){
+                    if (myBoard.getGrid()[ord-1][abs-1] == 0){
                         ord++;
                     }
                     else{

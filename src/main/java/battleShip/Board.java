@@ -77,6 +77,9 @@ public class Board {
             // case attaque ratée
             case 3: str_square = " @ |";
                     break;
+            // case bateau caché
+            case 4: str_square = "   |";
+                    break;
         }
         return str_square;
     }

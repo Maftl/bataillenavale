@@ -1,4 +1,3 @@
-
 package battleShip;
 
 import java.util.Scanner;
@@ -9,6 +8,7 @@ public class Player {
      private Boat fleet[] = new Boat[nbBoat];
      
      Board myBoard = new Board();
+     Board attackBoard = new Board();
 
     // Constructeur
     public  void Player(){
@@ -39,24 +39,22 @@ public class Player {
                 System.out.print("Saisie incorrecte, veuillez recommencer : \n>> ");
                 direction = sc.next().charAt(0);
             }
+
             System.out.println("direction :" + direction);
 
-            
-            System.out.println("Choisis les coordonnées d'origine du bateau :");
-            int abscissa = abscissaInput(sc, "Ligne :");
-            
             // Saisie de l'ordonnée
-            System.out.println("Ordonnées:");
+            System.out.println("Choisis les coordonnées d'origine du " + fleet[i].getTypeBoat() + " :");
+            System.out.println("Ligne (majuscule):");
             char ordinate = sc.next().charAt(0);
             int num_ascii = (int) ordinate;
-
-            while ((num_ascii) < 1 + 'a' || (num_ascii) > 10 + 'a' ){
-                System.out.print("Saisie incorrecte, veuillez recommencer : \n>> ");
+            while ((num_ascii-64) < 1 || (num_ascii-64) > 10){
+                System.out.print("Ligne  incorrecte, veuillez recommencer : \n>> ");
                 ordinate = sc.next().charAt(0);
                 num_ascii = (int) ordinate;
             }
-            System.out.println("Abscisse saisie: " + ordinate);
-                
+            // Saisie de l'abscisse
+            System.out.println("Colonne :");
+            int abscissa = abscissaInput(sc, "Colonne :");           
             
             fleet[i].setDirection(direction);
             fleet[i].setHz(abscissa);
@@ -64,15 +62,22 @@ public class Player {
             
             placeBoat(fleet[i].getHz(),fleet[i].getVt(),fleet[i].getDirection(),fleet[i].getHeight());
             i++;
+            
+            if(i>=nbBoat){
+                System.out.println("\n\nVotre flotte.");
+            }
+            
+            System.out.flush();
+            myBoard.showBoard();
         }
         
-        myBoard.showBoard();
+        System.out.println("\nGrille d'Attaque.");
+        attackBoard.showBoard();
         System.out.println("Prêt à jouer !!!");
 }
     // saisie de la colonne
     private int abscissaInput(Scanner sc, String msg) {
         // Saisie de l'abscisse
-        System.out.println(msg);
         int abscissa = sc.nextInt();
         while (abscissa < 1 || abscissa > 10 ){
             System.out.print(msg + " incorrecte, veuillez recommencer : \n>> ");
@@ -80,7 +85,7 @@ public class Player {
             // à rajouter : le refactor de la méthode isIn dans cette méthode
             // pour optimiser le test de la saisie d'abscisse
         }
-        System.out.println("Ligne saisie: " + abscissa);
+        System.out.println("Colonne saisie: " + abscissa);
         return abscissa;
     }
     
@@ -88,15 +93,8 @@ public class Player {
     public Player getPlayer(){
         return this;  
     }
-    
-    // Attaque du joueur
-    public void attack(){
-        
-    }
-    
+   
     public void placeBoat(int abs, int ord, char dir, int height ){
-        
-        
         switch(dir) {
             case 'h':
             case 'H':
@@ -104,8 +102,6 @@ public class Player {
                     for (int i = 0; i < height; i++) {
                         myBoard.getGrid()[(ord - 1) ][abs - 1 + i] = 1;
                     }
-                    System.out.flush();
-                    myBoard.showBoard();
             }
             break;
             case 'v':
@@ -114,8 +110,6 @@ public class Player {
                     for (int i=0; i < height; i++){
                         myBoard.getGrid()[(ord - 1)+i][abs-1] = 1;
                     }
-                    System.out.flush();
-                    myBoard.showBoard();
             }
             break;
             default:
@@ -200,7 +194,5 @@ public class Player {
         int abscissa = abscissaInput(sc, "Ligne :");
         
         return abscissa;   
-    }
-
-    
+    }   
 }

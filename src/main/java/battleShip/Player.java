@@ -4,11 +4,11 @@ import java.util.Scanner;
 
 public class Player {
     
-     private int nbBoat = 5;
-     private Boat fleet[] = new Boat[nbBoat];
+    private int nbBoat = 5;
+    private Boat fleet[] = new Boat[nbBoat];
      
-     Board myBoard = new Board();
-     Board attackBoard = new Board();
+    Board myBoard = new Board();
+    Board attackBoard = new Board();
 
     // Constructeur
     public  void Player(){
@@ -33,28 +33,30 @@ public class Player {
         while(i < nbBoat){
                        
             // Saisie de l'orientation
-            System.out.print("Choisis l'orientation de ton " + fleet[i].getTypeBoat() + " (" + fleet[i].getHeight() + " cases) (h/v): \n>> ");
+            // devrait accepter les H et V majuscules
+            System.out.print("Choisir l'orientation du " + fleet[i].getTypeBoat() + " (" + fleet[i].getHeight() + " cases)\n (\"h\" pour horizontal ou \"v\" pour vertical ): \n>> ");
             direction = sc.next().charAt(0);
             while (direction != 'h' && direction != 'v' ){
-                System.out.print("Saisie incorrecte, veuillez recommencer : \n>> ");
+                System.out.print("Orientation incorrecte. Recommencer : \n>> ");
                 direction = sc.next().charAt(0);
             }
 
             System.out.println("direction :" + direction);
 
-            // Saisie de l'ordonnée
-            System.out.println("Choisis les coordonnées d'origine du " + fleet[i].getTypeBoat() + "  :");
-            System.out.println("Ligne (majuscule):");
+            // Saisie de la ligne
+            System.out.println("Choisir les coordonnées d'origine du " + fleet[i].getTypeBoat() + " :");
+            System.out.println("Ligne (une lettre majuscule attendue) :");
             char ordinate = sc.next().charAt(0);
             int num_ascii = (int) ordinate;
             while ((num_ascii-64) < 1 || (num_ascii-64) > 10){
-                System.out.print("Ligne  incorrecte, veuillez recommencer : \n>> ");
+                System.out.print("Ligne incorrecte. Recommencer : \n>> ");
                 ordinate = sc.next().charAt(0);
                 num_ascii = (int) ordinate;
             }
-            // Saisie de l'abscisse
-            System.out.println("Colonne :");
-            int abscissa = abscissaInput(sc, "Colonne :");           
+            // Saisie de la colonne
+            System.out.println("Colonne (un chiffre attendu): \n>>");
+            int abscissa = abscissaInput(sc);
+            
             
             fleet[i].setDirection(direction);
             fleet[i].setHz(abscissa);
@@ -72,17 +74,27 @@ public class Player {
         }
         
         System.out.println("\nGrille d'Attaque.");
+        // Bateau en dur
+        attackBoard.getGrid()[1][1] = 4;
+        attackBoard.getGrid()[2][1] = 4;
+        attackBoard.getGrid()[3][1] = 4;
+        
         attackBoard.showBoard();
-        System.out.println("Prêt à jouer !!!");
+        System.out.println("Prêt à jouer !");
 }
     // saisie de la colonne
-    private int abscissaInput(Scanner sc, String msg) {
+    private int abscissaInput(Scanner sc) {
         // Saisie de l'abscisse
         int abscissa = sc.nextInt();
+        // doit tester les lettres et les exclure
+//        while (direction != 'h' && direction != 'v' ){
+//                System.out.print("Orientation incorrecte. Recommencer : \n>> ");
+//                direction = sc.next().charAt(0);
+//            }
         while (abscissa < 1 || abscissa > 10 ){
-            System.out.print(msg + " incorrecte, veuillez recommencer : \n>> ");
+            System.out.print(" incorrecte. Recommencer : \n>> ");
             abscissa = sc.nextInt();
-            // à rajouter : le refactor de la méthode isIn dans cette méthode
+            // à rajouter : le refactor de la méthode boatIsInGrid dans cette méthode
             // pour optimiser le test de la saisie d'abscisse
         }
         System.out.println("Colonne saisie: " + abscissa);
@@ -113,7 +125,7 @@ public class Player {
             }
             break;
             default:
-                System.out.println("erreur");
+                System.out.println("Erreur placeBoat");
         } 
     }
     
@@ -151,7 +163,7 @@ public class Player {
         return checked;
     }
 
-    public boolean isIn(int abs, int ord, char dir, int height){
+    public boolean boatIsInGrid(int abs, int ord, char dir, int height){
         boolean canBePlaced = false;
         switch(dir){
             case 'h':
@@ -161,7 +173,8 @@ public class Player {
                     canBePlaced = true; 
                 }
                 else{
-                    System.out.println("débordement de la grille à la horizontale");
+                    System.out.println("Débordement de la grille à la horizontale");
+                    // doit retourner à la saisie de l'utilisateur
                 }
             break;
             case 'v':
@@ -171,29 +184,75 @@ public class Player {
                     canBePlaced = true;
                 }
                 else{
-                    System.out.println("débordement de la grille à la verticale");
+                    System.out.println("Débordement de la grille à la verticale");
+                    // doit retourner à la saisie de l'utilisateur
                 }
             break;
             default:
-                System.out.println("erreur isIn");
+                System.out.println("Erreur boatIsInGrid");
         }
         return canBePlaced;
     }
     
     private boolean verificationTotale(int abs1, int ord1, char direction, int height){
         boolean verification = false;
-        if (this.isIn(abs1, ord1, direction, height) && this.isEmpty(abs1, ord1, direction, height)) {
+        if (this.boatIsInGrid(abs1, ord1, direction, height) && this.isEmpty(abs1, ord1, direction, height)) {
             verification = true;
         }
         return verification;
     }
     
-    public int attackOrder(){
+    public void attackOrder(){
         
-        System.out.println("Coordonnées d'attaque : \n>> ");
         Scanner sc = new Scanner(System.in);
-        int abscissa = abscissaInput(sc, "Ligne :");
         
-        return abscissa;   
-    }   
+        // Saisie de la colonne
+        System.out.println("Ligne (une lettre majuscule attendue) :\n >>");
+        char ordinate = sc.next().charAt(0);
+        int num_ascii = (int) ordinate;
+        while ((num_ascii-64) < 1 || (num_ascii-64) > 10){
+            System.out.print("Ligne incorrecte. Recommencer : \n>> ");
+            ordinate = sc.next().charAt(0);
+            num_ascii = (int) ordinate;
+        }
+        System.out.print("Ligne saisie :" + (num_ascii-64));
+        
+        // Saisie de la ligne
+        System.out.println("Colonne : \n>> ");
+        
+        int abscissa = abscissaInput(sc);
+        
+        attack(abscissa, (num_ascii-64));
+    }
+    
+    public void attack(int abs, int ord){
+        switch(attackBoard.getGrid()[ord-1][abs-1]){
+            // attaque sur case vide, dans le vent
+            case 0: attackBoard.getGrid()[ord-1][abs-1] = 3;
+                    // pour update la grille du second joueur : 
+                    // secondPlayer.myBoard.setGrid()[abs][ord] = 3;
+                    break;
+            // attaque sur bateau déjà touché
+            case 2: attackBoard.getGrid()[ord-1][abs-1] = 2;
+                    System.out.println("Bateau déjà touché, dommage !");
+                    break;
+            // attaque sur une ancienne attaque
+            case 3: attackBoard.getGrid()[ord-1][abs-1] = 3;
+                    System.out.println("Encore une attaque dans le vide, dommage !");
+                    break;
+            // attaque sur un bateau
+            case 4: attackBoard.getGrid()[ord-1][abs-1] = 2;
+                    System.out.println("Bateau touché !");
+                    break;
+        }
+        attackBoard.showBoard();
+        System.out.println("est passé par lààààà : " + abs + ord);
+    }
+    
+    //  a faire
+//    public boolean SquareIsInGrid(char abs, int ord){
+//        boolean canBePlaced = false;
+//        
+//        
+//    }
 }

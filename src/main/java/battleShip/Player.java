@@ -33,7 +33,7 @@ public class Player {
         while(i < nbBoat){
                        
             // Saisie de l'orientation
-            System.out.print("Choisis l'orientation de ton " + fleet[i].getTypeBoat() + "orientation (h/v) : \n>> ");
+            System.out.print("Choisis l'orientation de ton " + fleet[i].getTypeBoat() + " (" + fleet[i].getHeight() + " cases) (h/v): \n>> ");
             direction = sc.next().charAt(0);
             while (direction != 'h' && direction != 'v' ){
                 System.out.print("Saisie incorrecte, veuillez recommencer : \n>> ");
@@ -43,7 +43,7 @@ public class Player {
             System.out.println("direction :" + direction);
 
             // Saisie de l'ordonnée
-            System.out.println("Choisis les coordonnées d'origine du " + fleet[i].getTypeBoat() + " :");
+            System.out.println("Choisis les coordonnées d'origine du " + fleet[i].getTypeBoat() + "  :");
             System.out.println("Ligne (majuscule):");
             char ordinate = sc.next().charAt(0);
             int num_ascii = (int) ordinate;
@@ -157,7 +157,7 @@ public class Player {
             case 'h':
             case 'H':
                 int absTest = abs + height;
-                if(absTest <= 10){
+                if(absTest <= 11){
                     canBePlaced = true; 
                 }
                 else{
@@ -166,7 +166,8 @@ public class Player {
             break;
             case 'v':
             case 'V':
-                if ((ord+height) <= 10){
+                int ordtest = ord+height;
+                if ((ordtest) <= 11){
                     canBePlaced = true;
                 }
                 else{

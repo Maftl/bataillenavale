@@ -3,17 +3,17 @@ package battleShip;
 import java.util.Scanner;
 
 public class Player {
-    
+
     private int nbBoat = 5;
     private Boat fleet[] = new Boat[nbBoat];
-     
+
     Board myBoard = new Board();
     Board attackBoard = new Board();
 
     // Constructeur
     public  void Player(){
     }
-    
+
     // Initialisation du joueur
     public void initPlayer(){
 
@@ -23,24 +23,20 @@ public class Player {
         fleet[2] = new Boat("Submarin", 3);
         fleet[3] = new Boat("Destroyer", 3);
         fleet[4] = new Boat("Torpedo", 2);
-        
+
         myBoard.showBoard();
-        
+
         Scanner sc = new Scanner(System.in);
         char direction;
-        
+
         int i = 0;
         while(i < nbBoat){
-                       
+
             // Saisie de l'orientation
             // devrait accepter les H et V majuscules
             System.out.print("Choisir l'orientation du " + fleet[i].getTypeBoat() + " (" + fleet[i].getHeight() + " cases)\n (\"h\" pour horizontal ou \"v\" pour vertical ): \n>> ");
             direction = sc.next().charAt(0);
-            while (direction != 'h' && direction != 'v' ){
-                System.out.print("Orientation incorrecte. Recommencer : \n>> ");
-                direction = sc.next().charAt(0);
-            }
-
+            direction = orientationInput(direction, sc);
             System.out.println("direction :" + direction);
 
             // Saisie de la ligne
@@ -48,42 +44,57 @@ public class Player {
             System.out.println("Ligne (une lettre majuscule attendue) :");
             char ordinate = sc.next().charAt(0);
             int num_ascii = (int) ordinate;
-            while ((num_ascii-64) < 1 || (num_ascii-64) > 10){
-                System.out.print("Ligne incorrecte. Recommencer : \n>> ");
-                ordinate = sc.next().charAt(0);
-                num_ascii = (int) ordinate;
-            }
+            num_ascii = lineInput(num_ascii, sc);
+            
             // Saisie de la colonne
             System.out.println("Colonne (un chiffre attendu): \n>>");
-            int abscissa = abscissaInput(sc);
-            
-            
+            int abscissa = columnInput(sc);
+
+
             fleet[i].setDirection(direction);
             fleet[i].setHz(abscissa);
             fleet[i].setVt(num_ascii-64);
-            
+
             placeBoat(fleet[i].getHz(),fleet[i].getVt(),fleet[i].getDirection(),fleet[i].getHeight());
             i++;
-            
+
             if(i>=nbBoat){
                 System.out.println("\n\nVotre flotte.");
             }
-            
+
             System.out.flush();
             myBoard.showBoard();
         }
-        
+
         System.out.println("\nGrille d'Attaque.");
         // Bateau en dur
         attackBoard.getGrid()[1][1] = 4;
         attackBoard.getGrid()[2][1] = 4;
         attackBoard.getGrid()[3][1] = 4;
-        
+
         attackBoard.showBoard();
         System.out.println("Prêt à jouer !");
 }
+
+    private int lineInput(int num_ascii, Scanner sc) {
+        char ordinate;
+        while ((num_ascii-64) < 1 || (num_ascii-64) > 10){
+            System.out.print("Ligne incorrecte. Recommencer : \n>> ");
+            ordinate = sc.next().charAt(0);
+            num_ascii = (int) ordinate;
+        }
+        return num_ascii;
+    }
+
+    private char orientationInput(char direction, Scanner sc) {
+        while (direction != 'h' && direction != 'v' ){
+            System.out.print("Orientation incorrecte. Recommencer : \n>> ");
+            direction = sc.next().charAt(0);
+        }
+        return direction;
+    }
     // saisie de la colonne
-    private int abscissaInput(Scanner sc) {
+    private int columnInput(Scanner sc) {
         // Saisie de l'abscisse
         int abscissa = sc.nextInt();
         // doit tester les lettres et les exclure
@@ -100,12 +111,12 @@ public class Player {
         System.out.println("Colonne saisie: " + abscissa);
         return abscissa;
     }
-    
+
     // Retourne le Player
     public Player getPlayer(){
-        return this;  
+        return this;
     }
-   
+
     public void placeBoat(int abs, int ord, char dir, int height ){
         switch(dir) {
             case 'h':
@@ -126,9 +137,9 @@ public class Player {
             break;
             default:
                 System.out.println("Erreur placeBoat");
-        } 
+        }
     }
-    
+
      // Vérifie si la case saisie est vide est que les cases suivantes, suivant la taille du bateau, sont vides
     public boolean isEmpty(int abs, int ord, char dir, int height){
         boolean checked = true;
@@ -170,7 +181,7 @@ public class Player {
             case 'H':
                 int absTest = abs + height;
                 if(absTest <= 11){
-                    canBePlaced = true; 
+                    canBePlaced = true;
                 }
                 else{
                     System.out.println("Débordement de la grille à la horizontale");
@@ -193,7 +204,7 @@ public class Player {
         }
         return canBePlaced;
     }
-    
+
     private boolean verificationTotale(int abs1, int ord1, char direction, int height){
         boolean verification = false;
         if (this.boatIsInGrid(abs1, ord1, direction, height) && this.isEmpty(abs1, ord1, direction, height)) {
@@ -201,35 +212,34 @@ public class Player {
         }
         return verification;
     }
-    
+
     public void attackOrder(){
-        
+
         Scanner sc = new Scanner(System.in);
-        
+
         // Saisie de la colonne
-        System.out.println("Ligne (une lettre majuscule attendue) :\n >>");
+        System.out.println("Ligne (une lettre majuscule attendue) :\n>>");
         char ordinate = sc.next().charAt(0);
         int num_ascii = (int) ordinate;
         while ((num_ascii-64) < 1 || (num_ascii-64) > 10){
-            System.out.print("Ligne incorrecte. Recommencer : \n>> ");
+            System.out.println("Ligne incorrecte. Recommencer : \n>> ");
             ordinate = sc.next().charAt(0);
             num_ascii = (int) ordinate;
         }
-        System.out.print("Ligne saisie :" + (num_ascii-64));
-        
+        System.out.println("Ligne saisie :" + ordinate);
+
         // Saisie de la ligne
         System.out.println("Colonne : \n>> ");
-        
-        int abscissa = abscissaInput(sc);
-        
+        int abscissa = columnInput(sc);
+
         attack(abscissa, (num_ascii-64));
     }
-    
+
     public void attack(int abs, int ord){
         switch(attackBoard.getGrid()[ord-1][abs-1]){
             // attaque sur case vide, dans le vent
             case 0: attackBoard.getGrid()[ord-1][abs-1] = 3;
-                    // pour update la grille du second joueur : 
+                    // pour update la grille du second joueur :
                     // secondPlayer.myBoard.setGrid()[abs][ord] = 3;
                     break;
             // attaque sur bateau déjà touché
@@ -246,13 +256,12 @@ public class Player {
                     break;
         }
         attackBoard.showBoard();
-        System.out.println("est passé par lààààà : " + abs + ord);
     }
-    
+
     //  a faire
 //    public boolean SquareIsInGrid(char abs, int ord){
 //        boolean canBePlaced = false;
-//        
-//        
+//
+//
 //    }
 }

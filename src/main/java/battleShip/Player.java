@@ -56,17 +56,16 @@ public class Player {
             // Saisie de l'ordonnée
             System.out.println("Ordonnées:");
             
-            
             char ordinate = sc.next().charAt(0);
             int num_ascii = (int) ordinate;
 
             while ((num_ascii-64) < 1 || (num_ascii-64) > 10 ){
                 System.out.println("Saisie incorrecte, veuillez recommencer");
                 ordinate = sc.next().charAt(0);
+                num_ascii = (int) ordinate;
             }
             System.out.println("Abscisse saisie: " + ordinate);
                 
-            
             fleet[i].setDirection(direction);
             fleet[i].setHz(abscissa);
             fleet[i].setVt(num_ascii-64);

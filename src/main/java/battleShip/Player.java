@@ -35,19 +35,19 @@ public class Player {
             // Saisie de l'orientation
             // devrait accepter les H et V majuscules
             do{
-            System.out.print("Choisis l'orientation du " + fleet[i].getTypeBoat() + " (" + fleet[i].getHeight() + " cases)\n (\"h\" pour horizontal ou \"v\" pour vertical ): \n>> ");
+            System.out.print("- Choisis l'orientation du " + fleet[i].getTypeBoat() + " (" + fleet[i].getHeight() + " cases)\n (\"h\" pour horizontal ou \"v\" pour vertical ): \n>> ");
             direction = sc.next().charAt(0);
             direction = orientationInput(direction, sc);
 
             // Saisie de la ligne
-            System.out.println("Choisis les coordonnées d'origine du " + fleet[i].getTypeBoat() + " :");
-            System.out.println("Ligne (une lettre majuscule attendue) :");
+            System.out.println("- Choisis les coordonnées d'origine du " + fleet[i].getTypeBoat() + " :");
+            System.out.println("- Ligne (une lettre majuscule attendue) :");
             char ordinate = sc.next().charAt(0);
             int num_ascii = (int) ordinate;
             num_ascii = lineInput(num_ascii, sc);
 
             // Saisie de la colonne
-            System.out.println("Colonne (un chiffre attendu): \n>>");
+            System.out.println("- Colonne (un chiffre attendu): \n>>");
             int abscissa = columnInput(sc);
 
 
@@ -243,7 +243,6 @@ public class Player {
                 }
                 else{
                     System.out.println("* Tu sais pas viser, tu débordes de la grille à la verticale ! *");
-                    // doit retourner à la saisie de l'utilisateur
                 }
             break;
         }
@@ -275,9 +274,8 @@ public class Player {
 
         Scanner sc = new Scanner(System.in);
 
-
         // Saisie de la ligne / ordonnée
-        System.out.print("Ligne (une lettre majuscule attendue) : \n >> ");
+        System.out.print("- Ligne (une lettre majuscule attendue) : \n >> ");
         char ordinate = sc.next().charAt(0);
         int num_ascii = (int) ordinate;
         while ((num_ascii-64) < 1 || (num_ascii-64) > 10){
@@ -287,7 +285,7 @@ public class Player {
         }
 
         // Saisie de la colonne / absciss
-        System.out.print("Colonne : \n >> ");
+        System.out.print("- Colonne : \n >> ");
 
         int abscissa = columnInput(sc);
 

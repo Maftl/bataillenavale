@@ -56,7 +56,7 @@ public class Player {
             fleet[i].setHz(abscissa);
             fleet[i].setVt(num_ascii-64);
             
-            }while(!boatIsInGrid(fleet[i].getHz(), fleet[i].getVt(), fleet[i].getDirection(), fleet[i].getHeight()));
+            }while((!verificationTotale(fleet[i].getHz(), fleet[i].getVt(), fleet[i].getDirection(),fleet[i].getHeight())) );
             
             placeBoat(fleet[i].getHz(),fleet[i].getVt(),fleet[i].getDirection(),fleet[i].getHeight());
             i++;
@@ -154,9 +154,12 @@ public class Player {
                 while(checked==true && i < height){
                     if (myBoard.getGrid()[ord-1][abs-1] == 0){
                         abs++;
+                        
                     }
                     else{
+                        System.out.println("Impossible, un bateau est déja sur cet emplacement");
                         checked = false;
+                        
                     }
                 i++;
             }
@@ -168,6 +171,7 @@ public class Player {
                         ord++;
                     }
                     else{
+                        System.out.println("Impossible, un bateau est déja sur cet emplacement");
                         checked = false;
                     }
                 i++;

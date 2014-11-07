@@ -27,7 +27,7 @@ public class TestPlayer {
     }
     
     @Test
-    public void cantPlaceBoatWithInvalidCoordinates(){
+    public void cantPlaceBoatWithInvalidorientation(){
         Player testPlayer = new Player();
         int abs = 1;
         int ord = 1;

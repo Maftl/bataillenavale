@@ -99,15 +99,11 @@ public class Player {
     }
     // saisie de la colonne
     private int columnInput(Scanner sc) {
-        // Saisie de l'abscisse
-        int abscissa = sc.nextInt();
+        // Saisie de la colonne / abscisse
+        int abscissa = sc.nextIn();
         // doit tester les lettres et les exclure
-//        while (direction != 'h' && direction != 'v' ){
-//                System.out.print("Orientation incorrecte. Recommencer : \n>> ");
-//                direction = sc.next().charAt(0);
-//            }
         while (abscissa < 1 || abscissa > 10 ){
-            System.out.print(" incorrecte. Recommencer : \n>> ");
+            System.out.print("Colonne incorrecte. Recommencer : \n>> ");
             abscissa = sc.nextInt();
             // à rajouter : le refactor de la méthode boatIsInGrid dans cette méthode
             // pour optimiser le test de la saisie d'abscisse
@@ -226,7 +222,7 @@ public class Player {
         Scanner sc = new Scanner(System.in);
 
         // Saisie de la ligne / ordonnée
-        System.out.println("Ligne (une lettre majuscule attendue) :\n>>");
+        System.out.println("Saisie de la ligne d'attaque \n (une lettre majuscule attendue entre A et J) :\n>>");
         char ordinate = sc.next().charAt(0);
         int num_ascii = (int) ordinate;
         while ((num_ascii-64) < 1 || (num_ascii-64) > 10){
@@ -237,7 +233,8 @@ public class Player {
         System.out.println("Ligne saisie :" + ordinate);
 
         // Saisie de la colonne / abscisse
-        System.out.println("Colonne : \n>> ");
+        System.out.println("Saisie de la colonne d'attaque \n (chiffre attendu entre 1 et 10) :\n>> ");
+        if
         int abscissa = columnInput(sc);
 
         attack(abscissa, (num_ascii-64));

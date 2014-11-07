@@ -34,6 +34,7 @@ public class Player {
 
             // Saisie de l'orientation
             // devrait accepter les H et V majuscules
+            do{
             System.out.print("Choisir l'orientation du " + fleet[i].getTypeBoat() + " (" + fleet[i].getHeight() + " cases)\n (\"h\" pour horizontal ou \"v\" pour vertical ): \n>> ");
             direction = sc.next().charAt(0);
             direction = orientationInput(direction, sc);
@@ -54,15 +55,17 @@ public class Player {
             fleet[i].setDirection(direction);
             fleet[i].setHz(abscissa);
             fleet[i].setVt(num_ascii-64);
-
+            
+            }while(!boatIsInGrid(fleet[i].getHz(), fleet[i].getVt(), fleet[i].getDirection(), fleet[i].getHeight()));
+            
             placeBoat(fleet[i].getHz(),fleet[i].getVt(),fleet[i].getDirection(),fleet[i].getHeight());
             i++;
-
+            
             if(i>=nbBoat){
                 System.out.println("\n\nVotre flotte.");
             }
-
-            System.out.flush();
+            
+            System.out.flush();     
             myBoard.showBoard();
         }
 
@@ -183,7 +186,7 @@ public class Player {
                     canBePlaced = true;
                 }
                 else{
-                    System.out.println("Débordement de la grille à la horizontale");
+                    System.out.println("Débordement de la grille à l'horizontale");
                     // doit retourner à la saisie de l'utilisateur
                 }
             break;

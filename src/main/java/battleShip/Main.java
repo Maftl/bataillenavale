@@ -11,6 +11,6 @@ public class Main {
 
         joueur1.initPlayer();
 
-        joueur1.attackOrder();
+        joueur1.gamePlay();
     }
 }

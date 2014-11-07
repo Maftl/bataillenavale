@@ -71,14 +71,15 @@ public class Player {
             myBoard.showBoard();
         }
 
-        System.out.println("\nGrille d'Attaque.");
+        // System.out.println("\nGrille d'Attaque.");
         // Bateau en dur en horizontal A1 - longueur 3 cases
-        initFalseBoard();
-        attackBoard.showBoard();
+        // initFalseBoard();
+        // attackBoard.showBoard();
         System.out.println("Prêt à jouer !");
 }
 
   public void initFalseBoard(){
+    // Positionnement des 5 bateaux en caché sur la grille
     // Porte Avions horizontal en B1
     attackBoard.getGrid()[1][0] = 4;
     attackBoard.getGrid()[1][1] = 4;
@@ -136,7 +137,6 @@ public class Player {
             // à rajouter : le refactor de la méthode boatIsInGrid dans cette méthode
             // pour optimiser le test de la saisie d'abscisse
         }
-        System.out.println("Colonne saisie: " + abscissa);
         return abscissa;
     }
 
@@ -245,10 +245,19 @@ public class Player {
         return verification;
     }
 
-    public void attackOrder(){
-
-        initFalseBoard();
+    public void gamePlay(){
+      initFalseBoard();
+      System.out.println("\nGrille d'Attaque.");
+      attackBoard.showBoard();
+      do{
+        attackOrder();
         attackBoard.showBoard();
+      }
+      while(stillBoat());
+      System.out.println("Bravo, partie finie !");
+      }
+
+    public void attackOrder(){
 
         Scanner sc = new Scanner(System.in);
 
@@ -261,7 +270,6 @@ public class Player {
             ordinate = sc.next().charAt(0);
             num_ascii = (int) ordinate;
         }
-        System.out.println("Ligne saisie :" + ordinate);
 
         // Saisie de la colonne / abscisse
         System.out.println("Saisie de la colonne d'attaque \n (chiffre attendu entre 1 et 10) :\n>> ");
@@ -273,32 +281,42 @@ public class Player {
     public void attack(int abs, int ord){
         // le [ord-1][abs-1] de la saisie utilisateur correspond à l'origne de la matrice
         switch(attackBoard.getGrid()[ord-1][abs-1]){
-            // attaque sur case vide, dans le vent
+            // @ - attaque sur case vide, dans le vent
             case 0: attackBoard.getGrid()[ord-1][abs-1] = 3;
                     System.out.println("Loupé c'est dans l'eau, dommage !");
                     // pour update la grille du second joueur :
                     // secondPlayer.myBoard.setGrid()[abs][ord] = 3;
                     break;
-            // attaque sur bateau déjà touché
+            // X - attaque sur bateau déjà touché
             case 2: attackBoard.getGrid()[ord-1][abs-1] = 2;
                     System.out.println("Bateau déjà touché, dommage !");
                     break;
-            // attaque sur une ancienne attaque
+            // @ - attaque sur une ancienne attaque
             case 3: attackBoard.getGrid()[ord-1][abs-1] = 3;
                     System.out.println("Encore une attaque dans le vide, dommage !");
                     break;
-            // attaque sur un bateau
+            // X - attaque sur un bateau
             case 4: attackBoard.getGrid()[ord-1][abs-1] = 2;
                     System.out.println("Bateau touché !");
                     break;
         }
-        attackBoard.showBoard();
     }
 
-    //  a faire
-//    public boolean SquareIsInGrid(char abs, int ord){
-//        boolean canBePlaced = false;
-//
-//
-//    }
+    // Est ce qu'il reste des bateaux ?
+    public boolean stillBoat(){
+      // si gameOver renvoit vrai, la partie est finie
+      boolean boatFound = false;
+        for(int i= 0; i <= 9; i++ ){
+          for(int j= 0; j <= 9; j++ ){
+            if(attackBoard.getGrid()[j][i] == 4){
+              boatFound = true;
+              // System.out.println("Fais une nouvelle attaque");
+            }
+          }
+        }
+      if (!boatFound){
+        System.out.println("Tous les bateaux sont coulés !");
+      }
+      return boatFound;
+    }
 }

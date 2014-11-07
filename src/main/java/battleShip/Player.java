@@ -145,7 +145,9 @@ public class Player {
         return this;
     }
 
-    public void placeBoat(int abs, int ord, char dir, int height ){
+    public boolean placeBoat(int abs, int ord, char dir, int height ){
+        
+        boolean placed = false;
         switch(dir) {
             case 'h':
             case 'H':
@@ -153,6 +155,7 @@ public class Player {
                     for (int i = 0; i < height; i++) {
                         myBoard.getGrid()[(ord - 1) ][abs - 1 + i] = 1;
                     }
+                    placed = true;
             }
             break;
             case 'v':
@@ -161,11 +164,14 @@ public class Player {
                     for (int i=0; i < height; i++){
                         myBoard.getGrid()[(ord - 1)+i][abs-1] = 1;
                     }
-            }
+                    placed = true;
+                }
             break;
             default:
                 System.out.println("Erreur placeBoat");
+                placed = true;
         }
+        return placed;
     }
 
      // Vérifie si la case saisie est vide est que les cases suivantes, suivant la taille du bateau, sont vides

@@ -180,7 +180,7 @@ public class Player {
             break;
             default:
                 System.out.println("Erreur placeBoat");
-                placed = true;
+                placed = false;
         }
         return placed;
     }

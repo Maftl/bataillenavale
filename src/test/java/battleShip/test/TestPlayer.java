@@ -25,12 +25,13 @@ public class TestPlayer {
         int height = 5;
         assertEquals(true, testPlayer.placeBoat(abs,ord,dir,height));
     }
+    
     @Test
     public void cantPlaceBoatWithInvalidCoordinates(){
         Player testPlayer = new Player();
         int abs = 1;
-        int ord = 15;
-        char dir = 'h';
+        int ord = 1;
+        char dir = 'd';
         int height = 5;
         assertEquals(false, testPlayer.placeBoat(abs,ord,dir,height));
     }

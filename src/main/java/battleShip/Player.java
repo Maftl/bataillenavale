@@ -71,7 +71,6 @@ public class Player {
         attackBoard.getGrid()[1][1] = 4;
         attackBoard.getGrid()[2][1] = 4;
         attackBoard.getGrid()[3][1] = 4;
-
         attackBoard.showBoard();
         System.out.println("Prêt à jouer !");
 }

@@ -18,11 +18,11 @@ public class Player {
     public void initPlayer(){
 
         // Remplissage de la collection de Bateau avec type et taille
-        fleet[0] = new Boat("Aircraft carrier", 5);
-        fleet[1] = new Boat("Cruiser", 4);
-        fleet[2] = new Boat("Submarin", 3);
-        fleet[3] = new Boat("Destroyer", 3);
-        fleet[4] = new Boat("Torpedo", 2);
+        fleet[0] = new Boat("Porte Avions", 5);
+        fleet[1] = new Boat("Croiseur", 4);
+        fleet[2] = new Boat("Sous-marin", 3);
+        fleet[3] = new Boat("Contre Torpilleur", 3);
+        fleet[4] = new Boat("Torpilleur", 2);
 
         myBoard.showBoard();
 
@@ -46,7 +46,7 @@ public class Player {
             char ordinate = sc.next().charAt(0);
             int num_ascii = (int) ordinate;
             num_ascii = lineInput(num_ascii, sc);
-            
+
             // Saisie de la colonne
             System.out.println("Colonne (un chiffre attendu): \n>>");
             int abscissa = columnInput(sc);
@@ -55,17 +55,19 @@ public class Player {
             fleet[i].setDirection(direction);
             fleet[i].setHz(abscissa);
             fleet[i].setVt(num_ascii-64);
+
             
             }while((!verificationTotale(fleet[i].getHz(), fleet[i].getVt(), fleet[i].getDirection(),fleet[i].getHeight())) );
             
+
             placeBoat(fleet[i].getHz(),fleet[i].getVt(),fleet[i].getDirection(),fleet[i].getHeight());
             i++;
-            
+
             if(i>=nbBoat){
                 System.out.println("\n\nVotre flotte.");
             }
-            
-            System.out.flush();     
+
+            System.out.flush();
             myBoard.showBoard();
         }
 
@@ -223,7 +225,7 @@ public class Player {
 
         Scanner sc = new Scanner(System.in);
 
-        // Saisie de la colonne
+        // Saisie de la ligne / ordonnée
         System.out.println("Ligne (une lettre majuscule attendue) :\n>>");
         char ordinate = sc.next().charAt(0);
         int num_ascii = (int) ordinate;
@@ -234,7 +236,7 @@ public class Player {
         }
         System.out.println("Ligne saisie :" + ordinate);
 
-        // Saisie de la ligne
+        // Saisie de la colonne / abscisse
         System.out.println("Colonne : \n>> ");
         int abscissa = columnInput(sc);
 

@@ -22,7 +22,7 @@ public class Boat {
         typeBoat = Type;
     }  
     
-    // Assesceurs  
+//----------------------------[ Assesceurs ]------------------------------------  
     public int getHz() {
         return hz;
     } 
@@ -43,7 +43,8 @@ public class Boat {
         return typeBoat;
     }
     
-    // Mutateurs
+//------------------------------[ Mutateurs ]-----------------------------------
+    
     public void setHz(int hz) {
         this.hz = hz;
     }

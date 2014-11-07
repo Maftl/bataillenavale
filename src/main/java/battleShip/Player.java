@@ -219,7 +219,7 @@ public class Player {
 
         Scanner sc = new Scanner(System.in);
 
-        // Saisie de la colonne
+        // Saisie de la ligne / ordonnée
         System.out.println("Ligne (une lettre majuscule attendue) :\n>>");
         char ordinate = sc.next().charAt(0);
         int num_ascii = (int) ordinate;
@@ -230,7 +230,7 @@ public class Player {
         }
         System.out.println("Ligne saisie :" + ordinate);
 
-        // Saisie de la ligne
+        // Saisie de la colonne / abscisse
         System.out.println("Colonne : \n>> ");
         int abscissa = columnInput(sc);
 

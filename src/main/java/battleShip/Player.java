@@ -38,7 +38,6 @@ public class Player {
             System.out.print("Choisir l'orientation du " + fleet[i].getTypeBoat() + " (" + fleet[i].getHeight() + " cases)\n (\"h\" pour horizontal ou \"v\" pour vertical ): \n>> ");
             direction = sc.next().charAt(0);
             direction = orientationInput(direction, sc);
-            System.out.println("direction :" + direction);
 
             // Saisie de la ligne
             System.out.println("Choisir les coordonnées d'origine du " + fleet[i].getTypeBoat() + " :");
@@ -56,9 +55,7 @@ public class Player {
             fleet[i].setHz(abscissa);
             fleet[i].setVt(num_ascii-64);
 
-
             }while((!verificationTotale(fleet[i].getHz(), fleet[i].getVt(), fleet[i].getDirection(),fleet[i].getHeight())) );
-
 
             placeBoat(fleet[i].getHz(),fleet[i].getVt(),fleet[i].getDirection(),fleet[i].getHeight());
             i++;
@@ -111,7 +108,7 @@ public class Player {
     private int lineInput(int num_ascii, Scanner sc) {
         char ordinate;
         while ((num_ascii-64) < 1 || (num_ascii-64) > 10){
-            System.out.print("Ligne incorrecte. Recommencer : \n>> ");
+            System.out.print("Ligne INCORRECTE. Saisir une lettre majuscule entre A et J. \n >> ");
             ordinate = sc.next().charAt(0);
             num_ascii = (int) ordinate;
         }
@@ -120,22 +117,36 @@ public class Player {
 
     private char orientationInput(char direction, Scanner sc) {
         while (direction != 'h' && direction != 'v' ){
-            System.out.print("Orientation incorrecte. Recommencer : \n>> ");
+            System.out.print("Orientation INCORRECTE. Saisir 'h' pour horizontale ou 'v' pour verticale. \n >> ");
             direction = sc.next().charAt(0);
         }
         return direction;
     }
     // saisie de la colonne
     private int columnInput(Scanner sc) {
-      // Saisie de la colonne / abscisse
-       int abscissa = sc.nextInt();
+        // Saisie de la colonne / abscisse
         // doit tester les lettres et les exclure
-        while (abscissa < 1 || abscissa > 10 ){
-            System.out.print("Colonne incorrecte. Recommencer : \n>> ");
+        int abscissa = -1;
+        do{
+           try{
             abscissa = sc.nextInt();
-            // à rajouter : le refactor de la méthode boatIsInGrid dans cette méthode
-            // pour optimiser le test de la saisie d'abscisse
+            if (abscissa >= 1 && abscissa <= 10){
+                break;
+            } 
+            else{
+                System.out.print(" Saisie INCORRECTE. Le chiffre doit être compris entre 1 et 10. \n >>  ");
+                continue;     
+            }
+           }
+           catch(Exception e){
+               
+            System.out.print(" Saisie INCORRECTE. Veuillez saisir un chiffre. \n >>  ");
+            sc.next();
+           }
+           
         }
+        while(true);
+       
         System.out.println("Colonne saisie: " + abscissa);
         return abscissa;
     }
@@ -258,19 +269,21 @@ public class Player {
 
         Scanner sc = new Scanner(System.in);
 
+        
         // Saisie de la ligne / ordonnée
-        System.out.println("Saisie de la ligne d'attaque \n (une lettre majuscule attendue entre A et J) :\n>>");
+        System.out.print("Ligne (une lettre majuscule attendue) : \n >> ");
         char ordinate = sc.next().charAt(0);
         int num_ascii = (int) ordinate;
         while ((num_ascii-64) < 1 || (num_ascii-64) > 10){
-            System.out.println("Ligne incorrecte. Recommencer : \n>> ");
+            System.out.print("Ligne incorrecte. Recommencer : \n >> ");
             ordinate = sc.next().charAt(0);
             num_ascii = (int) ordinate;
         }
         System.out.println("Ligne saisie :" + ordinate);
 
-        // Saisie de la colonne / abscisse
-        System.out.println("Saisie de la colonne d'attaque \n (chiffre attendu entre 1 et 10) :\n>> ");
+        // Saisie de la colonne / absciss
+        System.out.print("Colonne : \n >> ");
+
         int abscissa = columnInput(sc);
 
         attack(abscissa, (num_ascii-64));

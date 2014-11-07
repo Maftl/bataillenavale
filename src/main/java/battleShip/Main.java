@@ -9,8 +9,8 @@ public class Main {
     {
         Player joueur1 = new Player();
 
-        joueur1.initPlayer();
-
+        // joueur1.initPlayer();
+        
         joueur1.attackOrder();
     }
 }

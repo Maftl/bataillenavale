@@ -8,8 +8,8 @@ public class Main {
     public static void main(String[] args)
     {
         Player joueur1 = new Player();
-        
-        joueur1.initPlayer();
+
+        // joueur1.initPlayer();
         
         joueur1.attackOrder();
     }

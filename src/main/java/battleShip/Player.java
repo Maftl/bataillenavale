@@ -18,11 +18,11 @@ public class Player {
     public void initPlayer(){
 
         // Remplissage de la collection de Bateau avec type et taille
-        fleet[0] = new Boat("Aircraft carrier", 5);
-        fleet[1] = new Boat("Cruiser", 4);
-        fleet[2] = new Boat("Submarin", 3);
-        fleet[3] = new Boat("Destroyer", 3);
-        fleet[4] = new Boat("Torpedo", 2);
+        fleet[0] = new Boat("Porte Avions", 5);
+        fleet[1] = new Boat("Croiseur", 4);
+        fleet[2] = new Boat("Sous-marin", 3);
+        fleet[3] = new Boat("Contre Torpilleur", 3);
+        fleet[4] = new Boat("Torpilleur", 2);
 
         myBoard.showBoard();
 
@@ -45,7 +45,7 @@ public class Player {
             char ordinate = sc.next().charAt(0);
             int num_ascii = (int) ordinate;
             num_ascii = lineInput(num_ascii, sc);
-            
+
             // Saisie de la colonne
             System.out.println("Colonne (un chiffre attendu): \n>>");
             int abscissa = columnInput(sc);
@@ -54,28 +54,56 @@ public class Player {
             fleet[i].setDirection(direction);
             fleet[i].setHz(abscissa);
             fleet[i].setVt(num_ascii-64);
-            
-            }while(!boatIsInGrid(fleet[i].getHz(), fleet[i].getVt(), fleet[i].getDirection(), fleet[i].getHeight()));
-            
+
+            }while((!verificationTotale(fleet[i].getHz(), fleet[i].getVt(), fleet[i].getDirection(),fleet[i].getHeight())) );
+
             placeBoat(fleet[i].getHz(),fleet[i].getVt(),fleet[i].getDirection(),fleet[i].getHeight());
             i++;
-            
+
             if(i>=nbBoat){
                 System.out.println("\n\nVotre flotte.");
             }
-            
-            System.out.flush();     
+
+            System.out.flush();
             myBoard.showBoard();
         }
 
         System.out.println("\nGrille d'Attaque.");
-        // Bateau en dur
-        attackBoard.getGrid()[1][1] = 4;
-        attackBoard.getGrid()[2][1] = 4;
-        attackBoard.getGrid()[3][1] = 4;
+        // Bateau en dur en horizontal A1 - longueur 3 cases
+        initFalseBoard();
         attackBoard.showBoard();
         System.out.println("Prêt à jouer !");
 }
+
+  public void initFalseBoard(){
+    // Porte Avions horizontal en B1
+    attackBoard.getGrid()[1][0] = 4;
+    attackBoard.getGrid()[1][1] = 4;
+    attackBoard.getGrid()[1][2] = 4;
+    attackBoard.getGrid()[1][3] = 4;
+    attackBoard.getGrid()[1][4] = 4;
+
+    // Croiseur en horizontal D4
+    attackBoard.getGrid()[3][3] = 4;
+    attackBoard.getGrid()[3][4] = 4;
+    attackBoard.getGrid()[3][5] = 4;
+    attackBoard.getGrid()[3][6] = 4;
+
+    // Sous-marin en horizontal A1
+    attackBoard.getGrid()[0][0] = 4;
+    attackBoard.getGrid()[0][1] = 4;
+    attackBoard.getGrid()[0][2] = 4;
+
+    // Contre Torpilleur horizontal en B6
+    attackBoard.getGrid()[1][5] = 4;
+    attackBoard.getGrid()[1][6] = 4;
+    attackBoard.getGrid()[1][7] = 4;
+
+    // Torpilleur en horizontal J9
+    attackBoard.getGrid()[9][8] = 4;
+    attackBoard.getGrid()[9][9] = 4;
+
+  }
 
     private int lineInput(int num_ascii, Scanner sc) {
         char ordinate;
@@ -96,7 +124,8 @@ public class Player {
     }
     // saisie de la colonne
     private int columnInput(Scanner sc) {
-        // Saisie de l'abscisse
+        // Saisie de la colonne / abscisse
+        // doit tester les lettres et les exclure
         int abscissa = -1;
         do{
            try{
@@ -162,9 +191,12 @@ public class Player {
                 while(checked==true && i < height){
                     if (myBoard.getGrid()[ord-1][abs-1] == 0){
                         abs++;
+
                     }
                     else{
+                        System.out.println("Impossible, un bateau est déja sur cet emplacement");
                         checked = false;
+
                     }
                 i++;
             }
@@ -176,6 +208,7 @@ public class Player {
                         ord++;
                     }
                     else{
+                        System.out.println("Impossible, un bateau est déja sur cet emplacement");
                         checked = false;
                     }
                 i++;
@@ -225,9 +258,13 @@ public class Player {
 
     public void attackOrder(){
 
+        initFalseBoard();
+        attackBoard.showBoard();
+
         Scanner sc = new Scanner(System.in);
 
-        // Saisie de la colonne
+        
+        // Saisie de la ligne / ordonnée
         System.out.print("Ligne (une lettre majuscule attendue) : \n >> ");
         char ordinate = sc.next().charAt(0);
         int num_ascii = (int) ordinate;
@@ -238,17 +275,20 @@ public class Player {
         }
         System.out.println("Ligne saisie :" + ordinate);
 
-        // Saisie de la ligne
+        // Saisie de la colonne / absciss
         System.out.print("Colonne : \n >> ");
+
         int abscissa = columnInput(sc);
 
         attack(abscissa, (num_ascii-64));
     }
 
     public void attack(int abs, int ord){
+        // le [ord-1][abs-1] de la saisie utilisateur correspond à l'origne de la matrice
         switch(attackBoard.getGrid()[ord-1][abs-1]){
             // attaque sur case vide, dans le vent
             case 0: attackBoard.getGrid()[ord-1][abs-1] = 3;
+                    System.out.println("Loupé c'est dans l'eau, dommage !");
                     // pour update la grille du second joueur :
                     // secondPlayer.myBoard.setGrid()[abs][ord] = 3;
                     break;

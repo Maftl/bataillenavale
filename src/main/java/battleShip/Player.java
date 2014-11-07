@@ -308,7 +308,7 @@ public class Player {
                     break;
             // @ - attaque sur une ancienne attaque
             case 3: attackBoard.getGrid()[ord-1][abs-1] = 3;
-                    System.out.println("* Encore une attaque dans le vide, dommage ! *");
+                    System.out.println("* Encore une attaque dans le vide, t'as trop bu ou quoi ? *");
                     break;
             // X - attaque sur un bateau
             case 4: attackBoard.getGrid()[ord-1][abs-1] = 2;
@@ -331,6 +331,21 @@ public class Player {
         }
       if (!boatFound){
         System.out.println("* Tous les bateaux sont coulés ! *");
+
+        System.out.println("                                                    ____");
+        System.out.println("                                         v        _(    )");
+        System.out.println("        _ ^ _                          v         (___(__)");
+        System.out.println("       '_\\V/ \'");
+        System.out.println("       ' oX`");
+        System.out.println("          X                            v");
+        System.out.println("          X             ");
+        System.out.println("          X                                                 .");
+        System.out.println("          X        \\O/                                      |\\");
+        System.out.println("          X.a##a.   M                                       |_\\");
+        System.out.println("       .aa########a.>>                                    __|__");
+        System.out.println("    .a################aa.                                 \\   /");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
       }
       return boatFound;
     }

@@ -47,7 +47,7 @@ public class Player {
             num_ascii = lineInput(num_ascii, sc);
 
             // Saisie de la colonne
-            System.out.println("- Colonne (un chiffre attendu): \n>>");
+            System.out.println("- Colonne (un chiffre attendu):");
             int abscissa = columnInput(sc);
 
 
@@ -84,32 +84,32 @@ public class Player {
     attackBoard.getGrid()[1][3] = 4;
     attackBoard.getGrid()[1][4] = 4;
 
-    // Croiseur en horizontal D4
-    attackBoard.getGrid()[3][3] = 4;
-    attackBoard.getGrid()[3][4] = 4;
-    attackBoard.getGrid()[3][5] = 4;
-    attackBoard.getGrid()[3][6] = 4;
+    // // Croiseur en horizontal D4
+    // attackBoard.getGrid()[3][3] = 4;
+    // attackBoard.getGrid()[3][4] = 4;
+    // attackBoard.getGrid()[3][5] = 4;
+    // attackBoard.getGrid()[3][6] = 4;
 
-    // Sous-marin en horizontal A1
-    attackBoard.getGrid()[0][0] = 4;
-    attackBoard.getGrid()[0][1] = 4;
-    attackBoard.getGrid()[0][2] = 4;
+    // // Sous-marin en horizontal A1
+    // attackBoard.getGrid()[0][0] = 4;
+    // attackBoard.getGrid()[0][1] = 4;
+    // attackBoard.getGrid()[0][2] = 4;
 
-    // Contre Torpilleur horizontal en B6
-    attackBoard.getGrid()[1][5] = 4;
-    attackBoard.getGrid()[1][6] = 4;
-    attackBoard.getGrid()[1][7] = 4;
+    // // Contre Torpilleur horizontal en B6
+    // attackBoard.getGrid()[1][5] = 4;
+    // attackBoard.getGrid()[1][6] = 4;
+    // attackBoard.getGrid()[1][7] = 4;
 
-    // Torpilleur en horizontal J9
-    attackBoard.getGrid()[9][8] = 4;
-    attackBoard.getGrid()[9][9] = 4;
+    // // Torpilleur en horizontal J9
+    // attackBoard.getGrid()[9][8] = 4;
+    // attackBoard.getGrid()[9][9] = 4;
 
   }
 
     private int lineInput(int num_ascii, Scanner sc) {
         char ordinate;
         while ((num_ascii-64) < 1 || (num_ascii-64) > 10){
-            System.out.print("~ Ligne INCORRECTE. Saisir une lettre majuscule entre A et J ~ \n >> ");
+            System.out.print("~ Ligne INCORRECTE. Saisir une lettre majuscule entre A et J\n >> ");
             ordinate = sc.next().charAt(0);
             num_ascii = (int) ordinate;
         }
@@ -118,7 +118,7 @@ public class Player {
 
     private char orientationInput(char direction, Scanner sc) {
         while (direction != 'h' && direction != 'v' ){
-            System.out.print("~ Orientation INCORRECTE. Saisir 'h' pour horizontale ou 'v' pour verticale. ~\n >> ");
+            System.out.print("~ Orientation INCORRECTE. Saisir 'h' pour horizontale ou 'v' pour verticale\n >> ");
             direction = sc.next().charAt(0);
         }
         return direction;
@@ -130,18 +130,19 @@ public class Player {
         int abscissa = -1;
         do{
            try{
+            // System.out.println(">>");
             abscissa = sc.nextInt();
             if (abscissa >= 1 && abscissa <= 10){
                 break;
             }
             else{
-                System.out.print("~ Saisie INCORRECTE. Le chiffre doit être compris entre 1 et 10 ~\n >>  ");
+                System.out.print("~ Saisie INCORRECTE. Le chiffre doit être compris entre 1 et 10\n >>  ");
                 continue;
             }
            }
            catch(Exception e){
 
-            System.out.print("~ Saisie INCORRECTE. Veuillez saisir un chiffre ~ \n >>  ");
+            System.out.print("~ Saisie INCORRECTE. Veuillez saisir un chiffre \n >>  ");
             sc.next();
            }
 
@@ -267,7 +268,7 @@ public class Player {
         attackBoard.showBoard();
       }
       while(stillBoat());
-      System.out.println("* Bravo moussaillon ! La partie finie ! *");
+      System.out.println("* Bravo moussaillon ! La partie est finie, tu peux retourner au port ! *");
       }
 
     public void attackOrder(){
@@ -279,7 +280,7 @@ public class Player {
         char ordinate = sc.next().charAt(0);
         int num_ascii = (int) ordinate;
         while ((num_ascii-64) < 1 || (num_ascii-64) > 10){
-            System.out.print("~ Ligne incorrecte. Recommencer : ~\n >> ");
+            System.out.print("~ Ligne INCORRECTE. Saisir une lettre majuscule entre A et J : \n >> ");
             ordinate = sc.next().charAt(0);
             num_ascii = (int) ordinate;
         }
